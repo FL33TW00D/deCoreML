@@ -144,7 +144,7 @@ def main():
     parser.add_argument("--debug", help="Enable debug mode", action="store_true")
     args = parser.parse_args()
 
-    parse_mil_file(args.file_path)
+    parse_mil_file(args.file_path, args.debug)
 
 
 if __name__ == "__main__":
