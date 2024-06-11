@@ -7,6 +7,12 @@ import os
 import glob
 import datetime
 
+def format_validation_message(message):
+    if message == "":
+        return message
+    else:
+        return message.replace('\\"', '"') + "\n"
+
 
 def extract_single(tensor_operation):
     operation_match = re.search(r"= (\w+)\(", tensor_operation)
@@ -40,8 +46,9 @@ def extract_single(tensor_operation):
         validation_message_pairs = re.findall(
             r'"(.+?)", "(.+)"', validation_message_str
         )
+    
         validation_messages = {
-            backend: message.replace('\\\\"', '\\"')
+            backend: format_validation_message(message) 
             for backend, message in validation_message_pairs
         }
 
@@ -94,7 +101,7 @@ def parse_mil_file(file_path, debug=False):
     table.add_column("Operation", style="cyan")
     table.add_column("CPU Runtime", style="blue")
     table.add_column("GPU Runtime", style="green")
-    table.add_column("Neural Engine Runtime", style="purple")
+    table.add_column("ANE Runtime", style="purple")
     table.add_column("Selected Backend", style="green")
     table.add_column("Name", style="yellow")
     table.add_column("Validation Messages", style="red")
