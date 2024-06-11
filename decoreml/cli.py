@@ -49,7 +49,7 @@ def extract_single(tensor_operation):
 
 
 def format_backend(backend):
-    if backend == "classic_cpu":
+    if backend == "classic_cpu" or backend == "bnns":
         return f"[blue]{backend}[/blue]"
     elif backend == "mps_graph":
         return f"[green]{backend}[/green]"
@@ -146,6 +146,3 @@ def main():
 
     parse_mil_file(args.file_path, args.debug)
 
-
-if __name__ == "__main__":
-    main()
