@@ -24,7 +24,8 @@ def extract_single(tensor_operation):
     runtimes = {}
     if runtimes_match:
         runtimes_str = runtimes_match.group(1)
-        runtimes_pairs = re.findall(r'"(.+?)", (\d+\.\d+)', runtimes_str)
+        # Changed regex pattern to handle scientific notation.
+        runtimes_pairs = re.findall(r'"(.+?)", ([\d.eE+-]+)', runtimes_str)
         runtimes = {backend: float(runtime) for backend, runtime in runtimes_pairs}
 
     selected_backend_match = re.search(
